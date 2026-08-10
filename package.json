@@ -1,0 +1,53 @@
+{
+  "name": "campusos-website",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Enterprise Academic Resource Planning Platform",
+  "main": "index.js",
+  "scripts": {
+    "dev": "vite",
+    "server": "tsx watch src/server.ts",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@prisma/adapter-pg": "^7.9.1",
+    "@prisma/client": "^5.22.0",
+    "axios": "^1.19.0",
+    "bcrypt": "^6.0.0",
+    "clsx": "^2.1.1",
+    "cors": "^2.8.6",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "framer-motion": "^11.0.0",
+    "jsonwebtoken": "^9.0.3",
+    "lucide-react": "^1.0.0",
+    "pg": "^8.23.0",
+    "react": "^18.3.0",
+    "react-dom": "^18.3.0",
+    "react-router-dom": "^6.22.0",
+    "tailwind-merge": "^2.2.0"
+  },
+  "devDependencies": {
+    "@types/bcrypt": "^6.0.0",
+    "@types/express": "^5.0.6",
+    "@types/jsonwebtoken": "^9.0.10",
+    "@types/node": "^26.2.0",
+    "@types/pg": "^8.21.0",
+    "@types/react": "^18.3.0",
+    "@types/react-dom": "^18.3.0",
+    "@vitejs/plugin-react": "^4.2.0",
+    "autoprefixer": "^10.4.18",
+    "nodemon": "^3.1.14",
+    "postcss": "^8.4.35",
+    "prisma": "^5.22.0",
+    "tailwindcss": "^3.4.1",
+    "ts-node": "^10.9.2",
+    "tsx": "^4.7.1",
+    "typescript": "^5.9.3",
+    "vite": "^5.1.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
