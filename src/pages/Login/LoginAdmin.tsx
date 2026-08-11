@@ -17,7 +17,7 @@ export const LoginAdmin: React.FC = () => {
     setError("");
 
     try {
-      const res = await fetch("http://localhost:5000/api/admin/request-otp", {
+      const res = await fetch("https://campusos-7p9m.onrender.com/api/admin/request-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ password }),
@@ -39,7 +39,7 @@ export const LoginAdmin: React.FC = () => {
     setError("");
 
     try {
-      const res = await fetch("http://localhost:5000/api/admin/verify-otp", {
+      const res = await fetch("https://campusos-7p9m.onrender.com/api/admin/verify-otp", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ otp }),
