@@ -1,5 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
-import NotificationContainer, { Toast, ConfirmDialogState } from "../components/Common/NotificationContainer";
+import NotificationContainer, { Toast, ConfirmDialogState } from "../components/common/NotificationContainer";
 
 export const simulateHash = (plainText: string) => btoa("CAMPUS_" + plainText + "_OS");
 

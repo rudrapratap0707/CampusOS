@@ -3,6 +3,7 @@ import cors from "cors";
 import dotenv from "dotenv";
 import { prisma } from "./lib/prisma.js";
 import authRoutes from "./routes/auth.routes.js";
+// @ts-ignore
 import adminAuthRouter from "./routes/adminAuth.js"; // 🔥 IMPORT ADMIN ROUTE
 
 dotenv.config();
@@ -39,7 +40,7 @@ app.get("/api/health", async (req, res) => {
   }
 });
 
-app.use((err, req, res, next) => {
+app.use((err: any, req: any, res: any, next: any) => {
   console.error(err.stack);
   res.status(500).json({ error: "Something went wrong on the server!" });
 });
