@@ -5,7 +5,12 @@ import { Documentation } from "../pages/Documentation/Documentation";
 import { Login } from "../pages/Login/Login";
 import StudentLogin from "../pages/Login/StudentLogin";
 import FacultyLogin from "../pages/Login/FacultyLogin";
-import AdminLogin from "../pages/Login/AdminLogin";
+
+// 🔥 NAYA: OTP Login page ko import karo
+import { LoginAdmin } from "../pages/Login/LoginAdmin"; 
+
+// 🔥 Dashboard page (iska naam tumne AdminLogin hi rehne diya tha)
+import AdminLogin from "../pages/Login/AdminLogin"; 
 
 export const router = createBrowserRouter(
   [
@@ -15,9 +20,8 @@ export const router = createBrowserRouter(
     },
     {
       path: "/login",
-      element: <Login />, // Generic login (agar dashboard ke baad test karna ho)
+      element: <Login />, 
     },
-    // 🔥 YAHAN HAIN TUMHARE ASLI 3-WAY LOGINS AUR PORTALS 🔥
     {
       path: "/login/student",
       element: <StudentLogin />, 
@@ -26,10 +30,24 @@ export const router = createBrowserRouter(
       path: "/login/faculty",
       element: <FacultyLogin />, 
     },
+    
+    // ==========================================
+    // 🔥 ADMIN ROUTES FIXED 🔥
+    // ==========================================
+    
+    // 1. Jab koi Admin Login par click karega, toh OTP page khulega
     {
       path: "/login/admin",
+      element: <LoginAdmin />, 
+    },
+    // 2. OTP Verify hone ke baad ye route hit hoga (Dashboard)
+    {
+      path: "/admin/dashboard",
       element: <AdminLogin />, 
     },
+    
+    // ==========================================
+
     {
       path: "/documentation",
       element: <Documentation />,

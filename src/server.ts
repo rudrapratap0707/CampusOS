@@ -2,7 +2,8 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { prisma } from "./lib/prisma.js";
-import authRoutes from "./routes/auth.routes.js"; // IMPORT ROUTES
+import authRoutes from "./routes/auth.routes.js";
+import adminAuthRouter from "./routes/adminAuth.js"; // 🔥 IMPORT ADMIN ROUTE
 
 dotenv.config();
 
@@ -19,6 +20,7 @@ app.use(express.json());
 // MOUNT ROUTES
 // ==========================================
 app.use("/api/auth", authRoutes); // Auth API Base URL
+app.use("/api/admin", adminAuthRouter); // 🔥 MOUNT ADMIN ROUTE
 
 app.get("/api/health", async (req, res) => {
   try {
@@ -37,7 +39,7 @@ app.get("/api/health", async (req, res) => {
   }
 });
 
-app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
+app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).json({ error: "Something went wrong on the server!" });
 });
