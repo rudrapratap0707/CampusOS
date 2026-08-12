@@ -23,6 +23,9 @@ app.use(cors({
   credentials: true
 }));
 
+// 🔥 YEH LINE MISSING THI - Iske bina JSON req.body undefined aata hai
+app.use(express.json());
+
 // ==========================================
 // MOUNT ROUTES
 // ==========================================
