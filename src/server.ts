@@ -5,6 +5,7 @@ import { prisma } from "./lib/prisma.js";
 import authRoutes from "./routes/auth.routes.js";
 // @ts-ignore
 import adminAuthRouter from "./routes/adminAuth.js"; // 🔥 IMPORT ADMIN ROUTE
+import departmentRoutes from "./routes/department.routes.js"; // 🔥 IMPORT DEPARTMENT ROUTE
 
 dotenv.config();
 
@@ -31,6 +32,7 @@ app.use(express.json());
 // ==========================================
 app.use("/api/auth", authRoutes); // Auth API Base URL
 app.use("/api/admin", adminAuthRouter); // 🔥 MOUNT ADMIN ROUTE
+app.use("/api/departments", departmentRoutes); // 🔥 MOUNT DEPARTMENT ROUTE
 
 app.get("/api/health", async (req, res) => {
   try {
