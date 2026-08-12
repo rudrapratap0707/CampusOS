@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Award, ShieldCheck, CheckCircle2, AlertTriangle, Send, Trash2, Edit3, Rocket, ArrowUpRight, X, Sparkles } from "lucide-react";
+import { Award, ShieldCheck, CheckCircle2, AlertTriangle, Send, Trash2, Edit3, Rocket, ArrowUpRight, X, Sparkles, Trash } from "lucide-react";
 import { useAcademic, Batch } from "../../context/AcademicContext";
 
 const ResultLaunch: React.FC = () => {
@@ -40,6 +40,36 @@ const ResultLaunch: React.FC = () => {
     promoteBatch(promotingBatch.name, newCoordinatorEmail);
     showToast("success", "Promotion Executed", `Batch successfully promoted to Sem ${promotingBatch.currentSemester + 1}!`);
     setPromotingBatch(null);
+  };
+
+  // 🔥 NEW FUNCTION: Hard Delete Result for a Batch's current semester
+  const handleDeleteResult = (batchName: string, semester: number) => {
+    showConfirm(
+      "DANGER: Delete Result?", 
+      `Are you ABSOLUTELY SURE you want to DELETE ALL MARKS for ${batchName} (Sem ${semester})? This action cannot be undone and will reset their grades for this semester.`, 
+      () => {
+        const batchStudents = students.filter(s => s.batch === batchName);
+        let deletedCount = 0;
+
+        batchStudents.forEach(st => {
+          const semKey = `${batchName}_${semester}`;
+          const activeSubjectCodes = batchSelectedSubjects[semKey] || [];
+          
+          activeSubjectCodes.forEach(subCode => {
+            // Setting marks to 0 effectively wipes them. 
+            // Depending on your Context implementation, you might have a dedicated delete function,
+            // but this safely overwrites it to 0.
+            saveSubjectInternalAndEse(st.rollNo, batchName, semester, subCode, 0, 0, 0);
+          });
+          deletedCount++;
+        });
+
+        // Also Unpublish and Revoke Coordinator approval if you have setters for them in Context
+        adminUnpublishBatchResult(batchName, semester); 
+        
+        showToast("success", "Result Deleted", `Marks for ${deletedCount} students in ${batchName} have been wiped.`);
+      }
+    );
   };
 
   if (activeBatch) {
@@ -258,7 +288,7 @@ const ResultLaunch: React.FC = () => {
                           showToast("info", "Unpublished", `Result for ${batch.name} has been hidden.`);
                         });
                       }} 
-                      className="px-4 py-2 bg-red-50 text-red-600 hover:bg-red-100 border border-red-200 text-xs font-bold rounded-lg cursor-pointer flex items-center gap-1.5"
+                      className="px-4 py-2 bg-slate-100 text-slate-700 hover:bg-slate-200 border border-slate-200 text-xs font-bold rounded-lg cursor-pointer flex items-center gap-1.5"
                     >
                       <Trash2 size={14}/> Unpublish
                     </button>
@@ -270,6 +300,16 @@ const ResultLaunch: React.FC = () => {
                     </button>
                   </>
                 )}
+
+                {/* 🔥 NEW DANGER BUTTON: DELETE RESULT */}
+                <button 
+                  onClick={() => handleDeleteResult(batch.name, batch.currentSemester)} 
+                  className="px-4 py-2 bg-red-50 hover:bg-red-600 text-red-600 hover:text-white border border-red-200 hover:border-red-600 text-xs font-bold rounded-lg cursor-pointer flex items-center gap-2 shadow-sm transition-all group"
+                  title="Wipe all marks for this semester"
+                >
+                  <Trash size={14} className="group-hover:animate-bounce"/> Delete Result
+                </button>
+
                 <button onClick={() => { setActiveBatch(batch.name); setEditSubject(""); }} className="px-4 py-2 bg-slate-800 hover:bg-slate-900 text-white text-xs font-bold rounded-lg cursor-pointer flex items-center gap-2 shadow-sm"><Edit3 size={14}/> Manage Roster</button>
               </div>
             </div>
